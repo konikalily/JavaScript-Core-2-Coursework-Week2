@@ -43,19 +43,36 @@ For all the fields that invalid, it should make their background color red. IF a
 Display an alert to thank you for filling out the form
 Blank out (make empty) all the text fields
 Important hint: In your function that handles clicks on the Submit button you will need to call event.preventDefault() to stop the browser from refreshing the page. To read more on how to do this: https://developer.mozilla.org/en/docs/Web/API/Eve*/
-
+console.log("google");
 const inputEmail = document.querySelector("#exampleInputEmail1");
 const YourNames = document.querySelector("#example-text-input");
 const textAreas = document.querySelector("#exampleTextarea");
-const SubmitBtn = document.querySelector(".btn.btn-primary");
+const SubmitBtn = document.querySelector("form button");
 
-SubmitBtn.addEventListener("click", validSubmit);
+SubmitBtn.addEventListener("click", (event) => {
+  //function validSubmit() {
+  let everyEmail = inputEmail.value;
 
-function validSubmit(e) {
-  const everyEmail = inputEmail.value;
-  const everyNames = YourNames.value;
-  const allText = textAreas.value;
-  e.preventDefault();
+  let everyNames = YourNames.value;
+  let allText = textAreas.value;
+  console.log(allText);
+  
+  if (everyEmail.length === 0 || everyEmail.includes("@") === false) {
+    inputEmail.style.backgroundColor = "red";
+  } else {
+    inputEmail.style.backgroundColor = "#fff";
+  }
+
+  if (everyNames.length === 0) {
+    YourNames.style.backgroundColor = "red";
+  }else{
+    YourNames.style.backgroundColor = "#fff";
+  }
+  if (allText.length === 0) {
+    textAreas.style.backgroundColor = "red";
+  }else{
+    textAreas.style.backgroundColor = "#fff";
+  }
   if (
     everyEmail.length > 0 &&
     everyEmail.includes("@") &&
@@ -64,20 +81,11 @@ function validSubmit(e) {
   ) {
     alert("Thank you for filling out the form !");
     everyEmail = "";
-    inputEmail.style.backgroundColor = "#fff";
-    everyNames = "";
-    YourNames.style.backgroundColor = "#fff";
-    allText = "";
-    textAreas.style.backgroundColor = "#fff";
-  }
-  if (everyEmail.length === 0 || everyEmail.includes("@") === false) {
-    inputEmail.style.backgroundColor = "red";
-  }
 
-  if (everyNames.length === 0) {
-    YourNames.style.backgroundColor = "red";
+    everyNames = "";
+
+    allText = "";
   }
-  if (allText.length === 0) {
-    allText.style.backgroundColor = "red";
-  }
-}
+  event.preventDefault();
+});
+//SubmitBtn.addEventListener("click", validSubmit);
